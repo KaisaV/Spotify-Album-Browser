@@ -4,3 +4,4 @@ For tracking time usage
 - setting up the SSH key and local repository 1,5h
 - familiarising myself with css and javascript 1,5h
 - making a skeleton of the interface 0,2h
+- making and debugging a script for searching for the albums 3h
