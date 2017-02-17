@@ -1,0 +1,6 @@
+For tracking time usage
+
+- browsing through the Spotify Web API things from https://developer.spotify.com/web-api/  2h
+- setting up the SSH key and local repository 1,5h
+- familiarising myself with css and javascript 1,5h
+- making a skeleton of the interface 0,2h
