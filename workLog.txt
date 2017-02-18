@@ -9,3 +9,11 @@ For tracking time usage
 - using ellipsis on too long titles and artists 0,25h
 - making all the images the same size 0,25h
 - adding tooltips for the images 1h
+
+
+TODO:
+- make everything work with IE
+- add the click -> high resolution picture
+- add a header for the search results
+- add extra features (from the email)
+- make the UI look nice (font-family, background image, etc)

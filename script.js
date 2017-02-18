@@ -11,7 +11,7 @@ function listAlbums(){
         var artist = i.artists[0].name;
         var album = i.name;
         album = album.replace(/ /g, "&nbsp;");
-        document.getElementById("covers").innerHTML += "<div style='albumCover' title='Title: "+album+"\nArtist: "+artist.replace(/ /g, "&nbsp;")+ "'><img src="+imgSrc+" width="+coverSize +"height="+coverSize+"><p style='albumInfo'>Title: "+i.name+"<br>Artist: " +artist+"</p></div>";
+        document.getElementById("covers").innerHTML += "<div class='albumCover' title='Title: "+album+"\nArtist: "+artist.replace(/ /g, "&nbsp;")+ "'><img src="+imgSrc+" width="+coverSize +"height="+coverSize+"><p class='albumInfo'>Title: "+i.name+"<br>Artist: " +artist+"</p></div>";
     }
 }
 
