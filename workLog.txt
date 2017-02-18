@@ -5,3 +5,4 @@ For tracking time usage
 - familiarising myself with css and javascript 1,5h
 - making a skeleton of the interface 0,2h
 - making and debugging a script for searching for the albums 3h
+- making the cript add the cover images of the albums, also artists and album titles are visible in the UI 0,5h
