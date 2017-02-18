@@ -1,13 +1,17 @@
 var xmlhttp = new XMLHttpRequest();
 var url = "https://api.spotify.com/v1/search";
 var albums;
+var coverSize = '150';
 
 function listAlbums(){
+    document.getElementById("covers").innerHTML = "";
     for (i of albums){
         console.log(i.name);
-        var imgSrc = i.images[2].url;
+        var imgSrc = i.images[1].url;
         var artist = i.artists[0].name;
-        document.getElementById("covers").innerHTML += "<div style='albumCover'><img src="+imgSrc+"><p style='albumInfo'>title:"+i.name+"<br>artist: " +artist+"</p></div>";
+        var album = i.name;
+        album = album.replace(/ /g, "&nbsp;");
+        document.getElementById("covers").innerHTML += "<div style='albumCover' title='Title: "+album+"\nArtist: "+artist.replace(/ /g, "&nbsp;")+ "'><img src="+imgSrc+" width="+coverSize +"height="+coverSize+"><p style='albumInfo'>Title: "+i.name+"<br>Artist: " +artist+"</p></div>";
     }
 }
 
