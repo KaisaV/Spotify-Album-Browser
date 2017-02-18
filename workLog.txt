@@ -12,8 +12,14 @@ For tracking time usage
 
 
 TODO:
-- make everything work with IE
+- make everything work with IE (and safari)
 - add the click -> high resolution picture
 - add a header for the search results
 - add extra features (from the email)
 - make the UI look nice (font-family, background image, etc)
+- chack the keyword for inappropriate characters
+- add some kind of message if no results were found
+
+Known bugs to be fixed:
+- some album images are not squares although they should be
+- some keyword result to a list that has "holes" in it = 1-3 empty slots whene there should be images
