@@ -9,15 +9,14 @@ For tracking time usage
 - using ellipsis on too long titles and artists 0,25h
 - making all the images the same size 0,25h
 - adding tooltips for the images 1h
-
+- make everything work with IE (and safari) 3h
+- add the click -> high resolution picture 5h
 
 TODO:
-- make everything work with IE (and safari)
-- add the click -> high resolution picture
 - add a header for the search results
 - add extra features (from the email)
 - make the UI look nice (font-family, background image, etc)
-- chack the keyword for inappropriate characters
+- check the keyword for inappropriate characters
 - add some kind of message if no results were found
 
 Known bugs to be fixed:
