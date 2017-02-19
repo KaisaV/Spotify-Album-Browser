@@ -21,12 +21,15 @@ xmlhttp.onreadystatechange = function(){
         n = 0;
         document.getElementById("covers").innerHTML = "";
         albums.forEach(listAlbums);
-        document.getElementById("covers").innerHTML += "<img id='overLayPic' >"
+        
+        //document.getElementById("covers").innerHTML += "<img id='overLayPic' >"
     }
 };
 
 function searchAlbums(){
-    url = "https://api.spotify.com/v1/search?q="+ document.getElementById('key').value+"&type=album";
+    var keyWord = document.getElementById('key').value;
+    url = "https://api.spotify.com/v1/search?q="+ keyWord +"&type=album";
+    document.getElementById("resultsHeader").innerHTML = "Found results with keyword &quot;" + keyWord +"&quot;";
     document.getElementById('key').value = "";
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
