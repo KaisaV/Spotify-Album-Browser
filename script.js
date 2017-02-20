@@ -10,8 +10,7 @@ function listAlbums(i){
         var artist = i.artists[0].name;
         var album = i.name;
         album = album.replace(/ /g, "&nbsp;");
-        document.getElementById("covers").innerHTML += "<div class='albumCover' onclick='showHRPic("+n+")' title='Title: "+album+"\nArtist: "+artist.replace(/ /g, "&nbsp;")+ "'><img src="+imgSrc+" width="+coverSize +"height="+coverSize+"><p class='albumInfo'>Title: "+i.name+"<br>Artist: " +artist+"</p></div>";
-    
+        document.getElementById("covers").innerHTML += "<div class='albumCover' onclick='showHRPic("+n+")' title='Title: "+album+"\nArtist: "+artist.replace(/ /g, "&nbsp;")+ "'><img src="+imgSrc+" width="+coverSize +"height="+coverSize+"><p class='albumInfo'>Title: "+i.name+"<br>Artist: " +artist+"</p></div>";   
 }
 
 xmlhttp.onreadystatechange = function(){
@@ -21,8 +20,6 @@ xmlhttp.onreadystatechange = function(){
         n = 0;
         document.getElementById("covers").innerHTML = "";
         albums.forEach(listAlbums);
-        
-        //document.getElementById("covers").innerHTML += "<img id='overLayPic' >"
     }
 };
 
@@ -36,11 +33,7 @@ function searchAlbums(){
 }
 
 function showHRPic(x){
-    //window.alert(i.images[0].url);
-    //document.getElementById("overLayPic").innerHTML = "<img id='overLayPic' src="+albums[x-1].images[0].url+">";
     document.getElementById("modalBox").style.display = "block";
-    //window.alert(albums[x-1].images[0].url);
-    //document.getElementById("HRPic").innerHTML = "<img id='HRPic' src="+albums[x-1].images[0].url+">"
     document.getElementById("HRPic").src = albums[x-1].images[0].url;
 }
 
