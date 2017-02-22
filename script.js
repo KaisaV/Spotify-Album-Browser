@@ -13,15 +13,7 @@ function listAlbums(i, end){
         var album = all[t].name;
         album = album.replace(/ /g, "&nbsp;");
         document.getElementById("covers").innerHTML += "<div class='albumCover' onclick='showHRPic("+t+")' title='Title: "+album+"\nArtist: "+artist.replace(/ /g, "&nbsp;")+ "'><img src="+imgSrc+" width="+coverSize +"height="+coverSize+"><p class='albumInfo'>Title: "+album+"<br>Artist: " +artist+"</p></div>";
-    }
-    
-
-        //n += 1;
-        //var imgSrc = i.images[1].url;
-        //var artist = i.artists[0].name;
-        //var album = i.name;
-        //album = album.replace(/ /g, "&nbsp;");
-        //document.getElementById("covers").innerHTML += "<div class='albumCover' onclick='showHRPic("+n+")' title='Title: "+album+"\nArtist: "+artist.replace(/ /g, "&nbsp;")+ "'><img src="+imgSrc+" width="+coverSize +"height="+coverSize+"><p class='albumInfo'>Title: "+i.name+"<br>Artist: " +artist+"</p></div>";        
+    }       
 }
 
 function addToList(a){
@@ -57,35 +49,38 @@ xmlhttp.onreadystatechange = function(){
         //n = 0;
         pre = tmp.albums;
         amount = tmp.albums.total;
+        if(amount > 5000){
+            window.alert("Please use a more specific keyword");
+            document.getElementById("covers").innerHTML = "";
+            document.getElementById("pagi").innerHTML = "";
+            document.getElementById("resultsHeader").innerHTML = "";
+        } else {
+            if (amount > 0){
+                albums.forEach(addToList);
         
-        if (amount > 0){
-            albums.forEach(addToList);
-        
-            if (all.length < amount){
-                searchAlbums();
+                if (all.length < amount){
+                    searchAlbums();
             } else {
                 addPagination();
                 document.getElementById("pagi").childNodes[0].className = "current";
+                document.getElementById("covers").innerHTML = "";
+                
+                if(1 >= all.length/20){
+                    listAlbums(0,all.length%20);
+                } else {
+                    listAlbums(0, 20);
+                }
         
-        
-            document.getElementById("covers").innerHTML = "";
-            //console.log("jee");
-        //albums.forEach(listAlbums);
-            if(1 >= all.length/20){
-                listAlbums(0,all.length%20);
-            } else {
-                listAlbums(0, 20);
-            }
-        
-            document.getElementById("resultsHeader").innerHTML = "Found "+amount+ " albums for:  &quot;" + keyWord +"&quot;";
+                document.getElementById("resultsHeader").innerHTML = "Found "+amount+ " albums for:  &quot;" + keyWord +"&quot;";
             }   
-        } else {
-            document.getElementById("covers").innerHTML = "";
-            document.getElementById("pagi").innerHTML = "";
-            document.getElementById("resultsHeader").innerHTML = "Found "+amount+ " albums for:  &quot;" + keyWord +"&quot;";
+            } else {
+                document.getElementById("covers").innerHTML = "";
+                document.getElementById("pagi").innerHTML = "";
+                document.getElementById("resultsHeader").innerHTML = "Found "+amount+ " albums for:  &quot;" + keyWord +"&quot;";
+            }
         }
-        
     }
+    
 };
 
 function searchAlbums(){
@@ -93,13 +88,13 @@ function searchAlbums(){
         all = [];
         keyWord = document.getElementById('key').value;
         url = "https://api.spotify.com/v1/search?q="+ keyWord +"&type=album";
+        
     } else {
         url = pre.next;
     }
-    
-    //document.getElementById('key').value = "";
+        
     xmlhttp.open("GET", url, true);
-    xmlhttp.send();
+    xmlhttp.send();    
 }
 
 function showHRPic(x){
