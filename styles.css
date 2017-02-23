@@ -91,6 +91,11 @@ input{
     text-overflow:ellipsis;
 }
 
+.noClick{
+    margin: 4px;
+    font-weight:bold;
+}
+
 #overLayPic{
     position:absolute;
     top:10%;
@@ -115,7 +120,7 @@ hr{
 .pagination{
     text-align: center;
 }
-.pagination a{
+.pagination a:not(.noClick){
     text-align: center;
     padding: 5px 10px;
     margin:2px;
@@ -129,7 +134,7 @@ hr{
     background-color: #A0FA00;
 }
 
-.pagination a:not(.current):hover{
+.pagination a:not(.current):not(.noClick):hover{
     background-color: #00CDEE;
 }
 

@@ -1,20 +1,21 @@
 var xmlhttp = new XMLHttpRequest();
 var url = "https://api.spotify.com/v1/search";
 var albums;
-var coverSize = '150';
-var n , keyWord, amount, pre;
+var coverSize = '150'; //The size for the images in the grid view.
+var keyWord, amount, pre;
 var all = [];
-var pages, curPage, maxPages = 5;
+var pages, maxPages = 5;
 
-
-
+/* Lists albums and their info (artist name, title) to the page by adding them to the div (id="covers").
+ * 
+ * @param integer i tells from which index we start adding.
+ * @param integer end tells to which index we add the covers from the list "all".
+ */
 function listAlbums(i, end){
-
     for(var t = i; t < i+end; t++){
         var imgSrc = all[t].images[1].url;
         var artist = all[t].artists[0].name;
         var album = all[t].name;
-        //album = album.replace(/ /g, "&nbsp;");
         
         var cover = document.createElement("div");
         cover.className = "albumCover";
@@ -34,17 +35,19 @@ function listAlbums(i, end){
         cover.appendChild(para);
         
         document.getElementById("covers").appendChild(cover);
-        
-        //document.getElementById("covers").innerHTML += "<div class='albumCover' onclick='showHRPic("+t+")' title='Title: "+album+"\nArtist: "+artist.replace(/ /g, "&nbsp;")+ "'>
-        //<img src="+imgSrc+" width="+coverSize +"height="+coverSize+">
-        //<p class='albumInfo'>Title: "+album+"<br>Artist: " +artist+"</p></div>";
     }       
 }
 
+/* Adds the given object to the list "all" which contains all objects found with the search.
+ * @param object a is an object from the found albums list.
+ */
 function addToList(a){
     all.push(a);
 }
 
+/* Sorts albums by artist name or title when either option is clicked on the page.
+ * @param string sortBy tells how the list should be sorted.
+ */
 function sortAlbums(sortBy){
     if(sortBy == "artist"){
         all.sort(function(a, b){return a.artists[0].name.localeCompare(b.artists[0].name);});
@@ -57,17 +60,23 @@ function sortAlbums(sortBy){
     //listAlbums(0, 20);
 }
 
+/* "Changes" pages by calling the "listAlbums" with appropriate indices. Also changes which 
+ * parts of pagination will be visible.
+ *
+ * @param integer index tells to which page the user wants to navigate. (index+1=the correct page number).
+ */
 function changePage(index){
     index = parseInt(index);
     document.getElementById("covers").innerHTML = "";
     document.getElementsByClassName("current")[0].className = "notCurrent";
     document.getElementsByClassName("notCurrent")[index].className = "current";
     var end;
-    if(index+1 >= all.length/20){
+    /*if(index+1 >= all.length/20){
         end = all.length%20;
     } else {
         end = 20;
-    }
+    }*/
+    end = (index+1 >= all.length/20) ? all.length%20 : 20;
     listAlbums(index*20, end);
     
     document.getElementsByClassName("current")[0].style.display = "inline-block";
@@ -89,7 +98,7 @@ function changePage(index){
                 document.getElementsByClassName("notCurrent")[ind].style.display = "none";
             }
         }
-    } else if (index < 2 && pages > 5){
+    } else if (index <= 2 && pages > 5){
     
         for(var ind = 0; ind < 3; ind++){
             document.getElementsByClassName("notCurrent")[ind].style.display = "inline-block";
@@ -117,6 +126,8 @@ function changePage(index){
     }
 }
 
+/* Adds pagination if needed after each search. 
+ */
 function addPagination(){
     var pagi = document.getElementById("pagi");
     pagi.innerHTML = "";
@@ -129,6 +140,7 @@ function addPagination(){
     
     var dots1 = document.createElement("a");
     dots1.innerHTML = "...";
+    dots1.className = "noClick";
     dots1.style.display = "none";
     dots1.id = "dots1";
     
@@ -154,6 +166,7 @@ function addPagination(){
         var len = document.getElementsByClassName("notCurrent").length;        
         var dots2 = document.createElement("a");
         dots2.innerHTML = "...";
+        dots2.className = "noClick";
         dots2.id = "dots2";
         pagi.appendChild(dots2);
         pagi.innerHTML += "<a href='#"+len+"' id='last' onclick='changePage("+(len-1)+")'>"+Math.ceil(pages)+"</a>";
@@ -168,13 +181,16 @@ function addPagination(){
     }
 }
 
+/* Parses the JSON that came from the API. Also calls functions to add all results to a list and to 
+ * present the results on the window.
+ */
 xmlhttp.onreadystatechange = function(){
     if(this.readyState == 4 && this.status == 200){
         var tmp = JSON.parse(this.responseText);
         albums = tmp.albums.items;
-        //n = 0;
         pre = tmp.albums;
         amount = tmp.albums.total;
+        
         if(amount > 5000){
             window.alert("Please use a more specific keyword");
             document.getElementById("covers").innerHTML = "";
@@ -223,16 +239,25 @@ function searchAlbums(){
     } else {
         url = pre.next;
     }
-        
+    
+    document.getElementById("covers").innerHTML = "";
+    document.getElementById("pagi").innerHTML = "";
+    
     xmlhttp.open("GET", url, true);
     xmlhttp.send();    
 }
 
+/* Makes the modal box and the correct high resolution image visible.
+ *
+ * @param integer x tells from which index the correct image can be found from the "all" list.
+ */
 function showHRPic(x){
     document.getElementById("modalBox").style.display = "block";
     document.getElementById("HRPic").src = all[x].images[0].url;
 }
 
+/* Closes (makes invisible) the modal box that was used to view the higher resolution image.
+ */
 function closeBox(){
     document.getElementById("modalBox").style.display = "none";
     document.getElementById("HRPic").src = "";
