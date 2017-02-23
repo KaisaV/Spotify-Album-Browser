@@ -116,6 +116,13 @@ hr{
     margin-top:10px;
 }
 
+.sorting {
+    display:none;
+    text-align:center;
+    padding:5px;
+    margin-bottom:7px;
+}
+
 .modal{
     display:none;
     position:fixed;

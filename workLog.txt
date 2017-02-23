@@ -16,10 +16,10 @@ For tracking time usage
 - make it impossible to search with word that have less than 3 characters (or have too many results eg. "and", "for") 0,5h
 - make the pagination look nicer (not using any libraries eg jQuery or UIkit as google says they don't work on all browsers) 4h
 - add a go-to drop down menu to make navigating faster/easier 0,75h
+- add sorting by artist and title 0,5h
 
 
 TODO:
-- add sorting by artist and title
 - make the UI look nice (font-family, background image, etc)
 - check the keyword for inappropriate characters
 

@@ -21,6 +21,18 @@ function addToList(a){
     all.push(a);
 }
 
+function sortAlbums(sortBy){
+    if(sortBy == "artist"){
+        all.sort(function(a, b){return a.artists[0].name.localeCompare(b.artists[0].name);});
+    } else {
+        all.sort(function(a, b){return a.name.localeCompare(b.name); });
+    }
+    
+    document.getElementById("covers").innerHTML = "";
+    changePage(0);
+    //listAlbums(0, 20);
+}
+
 function changePage(index){
     index = parseInt(index);
     document.getElementById("covers").innerHTML = "";
@@ -84,7 +96,6 @@ function changePage(index){
 function addPagination(){
     var pagi = document.getElementById("pagi");
     pagi.innerHTML = "";
-    //pagi += "<a href='#' id='firstPage'>First</a";
     var first = document.createElement("a");
     first.href = "#1";
     first.innerHTML = "1";
@@ -102,7 +113,6 @@ function addPagination(){
     
     var dropDown = document.createElement("select");
     dropDown.id = "dropDown";
-    //dropDown.setAttribute('onchange',  'callChangePage()');
     
     for (var i = 0; i < amount/20; i++){
         var newPage = "<a href='#' onclick='changePage("+(i)+")' class='notCurrent'>" + (i+1) + "</a>";
@@ -112,17 +122,12 @@ function addPagination(){
         newSelect.value = i;
         dropDown.appendChild(newSelect);
     }
-    //pagi += "<a href='#' class='lastPage'>Last</a>";
     
     if(pages > 5){
         for(var p = 4; p < pages; p++){
             document.getElementsByClassName("notCurrent")[p].style.display = "none";
         }
-        var len = document.getElementsByClassName("notCurrent").length;
-        
-        //pagi.insertBefore(dots, document.getElementsByClassName("notCurrent")[len-1]);
-        //document.getElementsByClassName("notCurrent")[len-1].style.display = "inline-block";
-        
+        var len = document.getElementsByClassName("notCurrent").length;        
         var dots2 = document.createElement("a");
         dots2.innerHTML = "...";
         dots2.id = "dots2";
@@ -133,10 +138,8 @@ function addPagination(){
         
         var button = document.createElement("button");
         button.setAttribute('onclick', "changePage(document.getElementById('dropDown').value)");
-        //button.onclick = "changePage("+ document.getElementById('dropDown').value+")";
         button.innerHTML = "GO!";
         pagi.appendChild(button);
-        //pagi.innerHTML += "<button onclick='changePage("+document.getElementById('dropDown').value+")'>GO!</button>";
         
     }
 }
@@ -160,20 +163,23 @@ xmlhttp.onreadystatechange = function(){
         
                 if (all.length < amount){
                     searchAlbums();
-            } else {
-                addPagination();
-                document.getElementsByClassName("notCurrent")[0].className = "current";
-                document.getElementById("covers").innerHTML = "";
-                
-                if(1 >= all.length/20){
-                    listAlbums(0,all.length%20);
                 } else {
-                    listAlbums(0, 20);
-                }
+                    addPagination();
+                    document.getElementsByClassName("notCurrent")[0].className = "current";
+                    document.getElementById("covers").innerHTML = "";
                 
+                    if(1 >= all.length/20){
+                        listAlbums(0,all.length%20);
+                    } else {
+                        listAlbums(0, 20);
+                    }
+                    document.getElementsByClassName("sorting")[0].style.display = "block";
+                    document.getElementById("sortByArtist").style.display = "inline";
+                    document.getElementById("sortByTitle").style.display = "inline";
+                    document.getElementById("sortTitle").style.display = "inline";
         
-                document.getElementById("resultsHeader").innerHTML = "Found "+amount+ " albums for:  &quot;" + keyWord +"&quot;";
-            }   
+                    document.getElementById("resultsHeader").innerHTML = "Found "+amount+ " albums for:  &quot;" + keyWord +"&quot;";
+                }   
             } else {
                 document.getElementById("covers").innerHTML = "";
                 document.getElementById("pagi").innerHTML = "";
