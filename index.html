@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> 
     <link rel="stylesheet" type="text/css" media="screen" href="styles.css"/>
     <script type="text/javascript" language="javascript" src="script.js" ></script>
     <title>Spotify Browser</title>
@@ -8,7 +8,7 @@
     <body>
 
         <h1 id="header" class="greenH1" style="greenH1">Spotify browser</h1>
-        <div>
+        <div class="inputs">
             <input id="key" type="text"  />
             <input class="button" type="submit" value="Search" onclick="searchAlbums()" />
         </div>
@@ -24,6 +24,7 @@
             <br>
         </div>
         <div id = "pagi" class="pagination">
+            <p>On this page you can search for albums with a keyword of your choice. <br>You can also sort the albums by artist name or title.<br> Enter does not work so click the search-button to search. <br> By clicking a cover you can see a higher resolution image of that cover.</p>
         </div>
         <hr />
         

@@ -12,8 +12,30 @@ function listAlbums(i, end){
         var imgSrc = all[t].images[1].url;
         var artist = all[t].artists[0].name;
         var album = all[t].name;
-        album = album.replace(/ /g, "&nbsp;");
-        document.getElementById("covers").innerHTML += "<div class='albumCover' onclick='showHRPic("+t+")' title='Title: "+album+"\nArtist: "+artist.replace(/ /g, "&nbsp;")+ "'><img src="+imgSrc+" width="+coverSize +"height="+coverSize+"><p class='albumInfo'>Title: "+album+"<br>Artist: " +artist+"</p></div>";
+        //album = album.replace(/ /g, "&nbsp;");
+        
+        var cover = document.createElement("div");
+        cover.className = "albumCover";
+        cover.setAttribute('onclick', "showHRPic("+t+")");
+        cover.title = "Title: " + album + "\nArtist: " + artist;
+        
+        var image = document.createElement("img");
+        image.src = imgSrc;
+        image.width = coverSize;
+        image.height = coverSize;
+        
+        var para = document.createElement("p");
+        para.className = "albumInfo";
+        para.innerHTML = "Title: "+album+"<br>Artist: " +artist;
+        
+        cover.appendChild(image);
+        cover.appendChild(para);
+        
+        document.getElementById("covers").appendChild(cover);
+        
+        //document.getElementById("covers").innerHTML += "<div class='albumCover' onclick='showHRPic("+t+")' title='Title: "+album+"\nArtist: "+artist.replace(/ /g, "&nbsp;")+ "'>
+        //<img src="+imgSrc+" width="+coverSize +"height="+coverSize+">
+        //<p class='albumInfo'>Title: "+album+"<br>Artist: " +artist+"</p></div>";
     }       
 }
 
