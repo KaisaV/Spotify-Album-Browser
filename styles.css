@@ -43,7 +43,6 @@ body{
 
 .albumCover{
     float:left;
-    /*border:1px solid black;*/
     padding:5pxpx;
     margin:10px;
     cursor:pointer;
@@ -63,7 +62,6 @@ body{
     overflow:hidden;
     text-overflow:ellipsis;
 }
-
 
 #overLayPic{
     position:absolute;
@@ -101,24 +99,30 @@ hr{
 .pagination a{
     text-align: center;
     padding: 5px 10px;
-    background-color: #ABCDEF;
+    margin:2px;
     text-decoration: none;
-    border: solid 1px;
+    background-color: #ABCDEF;
+    border-radius:2px;
+    /*border: solid 1px;*/
 }
-
-
 
 .pagination a.current{
     background-color: #A0FA00;
 }
 
+.pagination a:not(.current):hover{
+    background-color: #00CDEE;
+}
+
 #dropDown{
     margin-top:10px;
+    font-family:"Courier";
 }
 
 .sorting {
     display:none;
     text-align:center;
+    font-family: "Courier";
     padding:5px;
     margin-bottom:7px;
 }
