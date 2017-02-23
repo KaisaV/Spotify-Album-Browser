@@ -4,6 +4,7 @@ var albums;
 var coverSize = '150';
 var n , keyWord, amount, pre;
 var all = [];
+var pages, curPage, maxPages = 5;
 
 function listAlbums(i, end){
 
@@ -23,7 +24,7 @@ function addToList(a){
 function changePage(index){
     document.getElementById("covers").innerHTML = "";
     document.getElementsByClassName("current")[0].className = "notCurrent";
-    document.getElementById("pagi").childNodes[index].className = "current";
+    document.getElementsByClassName("notCurrent")[index].className = "current";
     var end;
     if(index+1 >= all.length/20){
         end = all.length%20;
@@ -31,14 +32,94 @@ function changePage(index){
         end = 20;
     }
     listAlbums(index*20, end);
+    
+    document.getElementsByClassName("current")[0].style.display = "inline-block";
+    if(index > 2 && index < pages-3 && pages > 5){
+        document.getElementById("last").style.display = "inline-block";
+        document.getElementById("dots2").style.display = "inline-block";
+        document.getElementById("first").style.display = "inline-block";
+        document.getElementById("dots1").style.display = "inline-block";
+        
+        var ind = 0;
+        for(ind ; ind < index-1; ind++){
+            document.getElementsByClassName("notCurrent")[ind].style.display = "none";
+        }
+        for(ind; ind < index+1; ind++){
+            document.getElementsByClassName("notCurrent")[ind].style.display = "inline-block";
+        }
+        if(index >2){
+            for(ind; ind < pages-1; ind++){
+                document.getElementsByClassName("notCurrent")[ind].style.display = "none";
+            }
+        }
+    } else if (index < 2 && pages > 5){
+    
+        for(var ind = 0; ind < 3; ind++){
+            document.getElementsByClassName("notCurrent")[ind].style.display = "inline-block";
+        }
+        document.getElementById("first").style.display = "none";
+        document.getElementById("dots1").style.display = "none";
+        document.getElementById("last").style.display = "inline-block";
+        document.getElementById("dots2").style.display = "inline-block";
+        for(var ind = 3; ind < pages-1; ind++){
+            document.getElementsByClassName("notCurrent")[ind].style.display = "none";
+        }
+    } else if (index > pages-3 && pages > 5){
+        var ind = 0
+        
+        for(ind; ind < pages-4; ind++){
+            document.getElementsByClassName("notCurrent")[ind].style.display = "none";
+        }
+        for(ind; ind < pages-1; ind++){
+            document.getElementsByClassName("notCurrent")[ind].style.display = "inline-block";
+        } 
+        document.getElementById("first").style.display = "inline-block";
+        document.getElementById("dots1").style.display = "inline-block";
+        document.getElementById("last").style.display = "none";
+        document.getElementById("dots2").style.display = "none";
+    }
 }
 
 function addPagination(){
     var pagi = document.getElementById("pagi");
     pagi.innerHTML = "";
+    //pagi += "<a href='#' id='firstPage'>First</a";
+    var first = document.createElement("a");
+    first.href = "#1";
+    first.innerHTML = "1";
+    first.id = "first";
+    first.style.display = "none";
+    first.setAttribute('onclick', 'changePage(0)');
+    
+    var dots1 = document.createElement("a");
+    dots1.innerHTML = "...";
+    dots1.style.display = "none";
+    dots1.id = "dots1";
+    
+    pagi.appendChild(first);
+    pagi.appendChild(dots1);
+    
     for (var i = 0; i < amount/20; i++){
         var newPage = "<a href='#' onclick='changePage("+(i)+")' class='notCurrent'>" + (i+1) + "</a>";
         pagi.innerHTML += newPage;
+    }
+    //pagi += "<a href='#' class='lastPage'>Last</a>";
+    
+    if(pages > 5){
+        for(var p = 4; p < pages; p++){
+            document.getElementsByClassName("notCurrent")[p].style.display = "none";
+        }
+        var len = document.getElementsByClassName("notCurrent").length;
+        
+        //pagi.insertBefore(dots, document.getElementsByClassName("notCurrent")[len-1]);
+        //document.getElementsByClassName("notCurrent")[len-1].style.display = "inline-block";
+        
+        var dots2 = document.createElement("a");
+        dots2.innerHTML = "...";
+        dots2.id = "dots2";
+        pagi.appendChild(dots2);
+        pagi.innerHTML += "<a href='#"+len+"' id='last' onclick='changePage("+(len-1)+")'>"+Math.ceil(pages)+"</a>";
+        
     }
 }
 
@@ -56,13 +137,14 @@ xmlhttp.onreadystatechange = function(){
             document.getElementById("resultsHeader").innerHTML = "";
         } else {
             if (amount > 0){
+                pages = amount/20;
                 albums.forEach(addToList);
         
                 if (all.length < amount){
                     searchAlbums();
             } else {
                 addPagination();
-                document.getElementById("pagi").childNodes[0].className = "current";
+                document.getElementsByClassName("notCurrent")[0].className = "current";
                 document.getElementById("covers").innerHTML = "";
                 
                 if(1 >= all.length/20){
@@ -70,6 +152,7 @@ xmlhttp.onreadystatechange = function(){
                 } else {
                     listAlbums(0, 20);
                 }
+                
         
                 document.getElementById("resultsHeader").innerHTML = "Found "+amount+ " albums for:  &quot;" + keyWord +"&quot;";
             }   

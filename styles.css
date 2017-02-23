@@ -106,6 +106,8 @@ hr{
     border: solid 1px;
 }
 
+
+
 .pagination a.current{
     background-color: #A0FA00;
 }
