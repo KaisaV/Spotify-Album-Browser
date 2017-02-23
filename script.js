@@ -22,6 +22,7 @@ function addToList(a){
 }
 
 function changePage(index){
+    index = parseInt(index);
     document.getElementById("covers").innerHTML = "";
     document.getElementsByClassName("current")[0].className = "notCurrent";
     document.getElementsByClassName("notCurrent")[index].className = "current";
@@ -99,9 +100,17 @@ function addPagination(){
     pagi.appendChild(first);
     pagi.appendChild(dots1);
     
+    var dropDown = document.createElement("select");
+    dropDown.id = "dropDown";
+    //dropDown.setAttribute('onchange',  'callChangePage()');
+    
     for (var i = 0; i < amount/20; i++){
         var newPage = "<a href='#' onclick='changePage("+(i)+")' class='notCurrent'>" + (i+1) + "</a>";
         pagi.innerHTML += newPage;
+        var newSelect = document.createElement("option");
+        newSelect.innerHTML = i+1;
+        newSelect.value = i;
+        dropDown.appendChild(newSelect);
     }
     //pagi += "<a href='#' class='lastPage'>Last</a>";
     
@@ -119,6 +128,15 @@ function addPagination(){
         dots2.id = "dots2";
         pagi.appendChild(dots2);
         pagi.innerHTML += "<a href='#"+len+"' id='last' onclick='changePage("+(len-1)+")'>"+Math.ceil(pages)+"</a>";
+        pagi.innerHTML += "<br>";
+        pagi.appendChild(dropDown);
+        
+        var button = document.createElement("button");
+        button.setAttribute('onclick', "changePage(document.getElementById('dropDown').value)");
+        //button.onclick = "changePage("+ document.getElementById('dropDown').value+")";
+        button.innerHTML = "GO!";
+        pagi.appendChild(button);
+        //pagi.innerHTML += "<button onclick='changePage("+document.getElementById('dropDown').value+")'>GO!</button>";
         
     }
 }

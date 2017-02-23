@@ -112,6 +112,10 @@ hr{
     background-color: #A0FA00;
 }
 
+#dropDown{
+    margin-top:10px;
+}
+
 .modal{
     display:none;
     position:fixed;
