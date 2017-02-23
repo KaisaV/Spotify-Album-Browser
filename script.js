@@ -6,6 +6,8 @@ var n , keyWord, amount, pre;
 var all = [];
 var pages, curPage, maxPages = 5;
 
+
+
 function listAlbums(i, end){
 
     for(var t = i; t < i+end; t++){

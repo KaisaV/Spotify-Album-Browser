@@ -9,8 +9,8 @@
 
         <h1 id="header" class="greenH1" style="greenH1">Spotify browser</h1>
         <div class="inputs">
-            <input id="key" type="text"  />
-            <input class="button" type="submit" value="Search" onclick="searchAlbums()" />
+            <input id="key" type="text" onkeydown="if(event.keyCode == 13){document.getElementById('searchBtn').click()}" />
+            <input id ="searchBtn" class="button" type="submit" value="Search" onclick="searchAlbums()" />
         </div>
         
         <div id="results">
@@ -19,12 +19,12 @@
         <hr />
         <div class="sorting">
             <a id="sortTitle">Sort by: </a>
-            <a href="#" id="sortByArtist" onclick="sortAlbums('artist')">artist</a>
+            <a href="#" id="sortByArtist" onclick="sortAlbums('artist')" >artist</a>
             <a href="#" id="sortByTitle" onclick="sortAlbums('title')">title</a>
             <br>
         </div>
         <div id = "pagi" class="pagination">
-            <p>On this page you can search for albums with a keyword of your choice. <br>You can also sort the albums by artist name or title.<br> Enter does not work so click the search-button to search. <br> By clicking a cover you can see a higher resolution image of that cover.</p>
+            <p>On this page you can search for albums with a keyword of your choice. <br>You can also sort the albums by artist name or title.<br> By clicking a cover you can see a higher resolution image of that cover.</p>
         </div>
         <hr />
         
@@ -36,7 +36,6 @@
         <div id="covers">
         </div>
         
-        
-
     </body>
+    
 </html>
