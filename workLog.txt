@@ -24,10 +24,11 @@ For tracking time usage
 - little big fixes 0,5h
 - more bug fixes 1h
 - added a spinning "loading" icon to show something is happening when searching albums 1h
+- remove inappropriate characters from the keyword 1h
+
+
 
 TODO:
-- make the UI look nice (font-family, background image, etc)
-- check the keyword for inappropriate characters
-
+- add pagination to the bottom of the page too
 Bugs:
 - pagination jumps ????

@@ -6,6 +6,18 @@ var keyWord, amount, pre;
 var all = [];
 var pages, maxPages = 5;
 
+/* Removes inappropriate characters from the user's input to prevent errors when searching for results.
+ *
+ * @param string txt the keyword from the user.
+ * @return string valid keyword in a form that can be used to search for albums.
+ */
+ function removeInappropriates(txt){
+    var valid = txt.replace(/(<([^>]+)>)/gi, "");
+    valid = valid.replace(/[|\^{\};&\?"#%\\]/g, "");
+    return valid;
+ }
+
+
 /* Lists albums and their info (artist name, title) to the page by adding them to the div (id="covers").
  * 
  * @param integer i tells from which index we start adding.
@@ -235,21 +247,24 @@ xmlhttp.onreadystatechange = function(){
 };
 
 function searchAlbums(){
-    if (keyWord != document.getElementById('key').value){
-        document.getElementById("covers").innerHTML = "<div class='searching'></div>";
-        document.getElementById("pagi").innerHTML = "";
-        all = [];
-        keyWord = document.getElementById('key').value;
-        url = "https://api.spotify.com/v1/search?q="+ keyWord +"&type=album";
+    var newWord = removeInappropriates(document.getElementById('key').value);
+    if (newWord != ""){
+        if (keyWord != newWord){
+            document.getElementById("covers").innerHTML = "<div class='searching'></div>";
+            document.getElementById("pagi").innerHTML = "";
+            all = [];
+            keyWord = newWord;
+            url = "https://api.spotify.com/v1/search?q="+ keyWord +"&type=album";
         
+        } else {
+            url = pre.next;
+        }
+
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();  
     } else {
-        url = pre.next;
+        window.alert("That is not a valid keyword!");
     }
-    
-    
-    
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();    
 }
 
 /* Makes the modal box and the correct high resolution image visible.
