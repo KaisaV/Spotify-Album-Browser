@@ -13,7 +13,7 @@ var pages, maxPages = 5;
  */
 function listAlbums(i, end){
     for(var t = i; t < i+end; t++){
-        var imgSrc = all[t].images[1].url;
+        var imgSrc = (all[t].images[1]) ? all[t].images[1].url : "";
         var artist = all[t].artists[0].name;
         var album = all[t].name;
         
@@ -39,6 +39,7 @@ function listAlbums(i, end){
 }
 
 /* Adds the given object to the list "all" which contains all objects found with the search.
+ * 
  * @param object a is an object from the found albums list.
  */
 function addToList(a){
@@ -46,6 +47,7 @@ function addToList(a){
 }
 
 /* Sorts albums by artist name or title when either option is clicked on the page.
+ * 
  * @param string sortBy tells how the list should be sorted.
  */
 function sortAlbums(sortBy){
@@ -57,7 +59,6 @@ function sortAlbums(sortBy){
     
     document.getElementById("covers").innerHTML = "";
     changePage(0);
-    //listAlbums(0, 20);
 }
 
 /* "Changes" pages by calling the "listAlbums" with appropriate indices. Also changes which 
@@ -76,7 +77,7 @@ function changePage(index){
     } else {
         end = 20;
     }*/
-    end = (index+1 >= all.length/20) ? all.length%20 : 20;
+    end = (index+1 > all.length/20) ? all.length%20 : 20;
     listAlbums(index*20, end);
     
     document.getElementsByClassName("current")[0].style.display = "inline-block";
@@ -191,8 +192,9 @@ xmlhttp.onreadystatechange = function(){
         pre = tmp.albums;
         amount = tmp.albums.total;
         
-        if(amount > 5000){
+        if(amount > 5000){ //too many results
             window.alert("Please use a more specific keyword");
+            // Empty the container divs.
             document.getElementById("covers").innerHTML = "";
             document.getElementById("pagi").innerHTML = "";
             document.getElementById("resultsHeader").innerHTML = "";
@@ -213,6 +215,8 @@ xmlhttp.onreadystatechange = function(){
                     } else {
                         listAlbums(0, 20);
                     }
+                    
+                    // Make the sorting "buttons" visible.
                     document.getElementsByClassName("sorting")[0].style.display = "block";
                     document.getElementById("sortByArtist").style.display = "inline";
                     document.getElementById("sortByTitle").style.display = "inline";
@@ -220,7 +224,7 @@ xmlhttp.onreadystatechange = function(){
         
                     document.getElementById("resultsHeader").innerHTML = "Found "+amount+ " albums for:  &quot;" + keyWord +"&quot;";
                 }   
-            } else {
+            } else { // No results were found.
                 document.getElementById("covers").innerHTML = "";
                 document.getElementById("pagi").innerHTML = "";
                 document.getElementById("resultsHeader").innerHTML = "Found "+amount+ " albums for:  &quot;" + keyWord +"&quot;";
@@ -232,6 +236,8 @@ xmlhttp.onreadystatechange = function(){
 
 function searchAlbums(){
     if (keyWord != document.getElementById('key').value){
+        document.getElementById("covers").innerHTML = "<div class='searching'></div>";
+        document.getElementById("pagi").innerHTML = "";
         all = [];
         keyWord = document.getElementById('key').value;
         url = "https://api.spotify.com/v1/search?q="+ keyWord +"&type=album";
@@ -240,8 +246,7 @@ function searchAlbums(){
         url = pre.next;
     }
     
-    document.getElementById("covers").innerHTML = "";
-    document.getElementById("pagi").innerHTML = "";
+    
     
     xmlhttp.open("GET", url, true);
     xmlhttp.send();    
@@ -253,7 +258,7 @@ function searchAlbums(){
  */
 function showHRPic(x){
     document.getElementById("modalBox").style.display = "block";
-    document.getElementById("HRPic").src = all[x].images[0].url;
+    document.getElementById("HRPic").src = (all[x].images[0]) ? all[x].images[0].url : "";
 }
 
 /* Closes (makes invisible) the modal box that was used to view the higher resolution image.

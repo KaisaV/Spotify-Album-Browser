@@ -69,12 +69,11 @@ input{
 
 .albumCover{
     display:inline-block;
-    padding:5pxpx;
+    padding:5px;
     margin:10px;
     cursor:pointer;
     transition:0.5s;
     text-align:left;
-    
 }
 
 .albumCover:hover{
@@ -185,4 +184,27 @@ hr{
     cursor:pointer;
 }
 
+.searching{
+    margin: auto;
+    position: fixed;
+    left:0; top:20em; right:0; bottom:0;
+    display:inline-block;
+    border: 10px solid #f3f3f3;
+    border-top: 10px solid #00FF0F;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    -webkit-animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin{
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg); }
+}
 

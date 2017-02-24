@@ -22,6 +22,8 @@ For tracking time usage
 - center the album covers 0,5h
 - comment code 0,5h
 - little big fixes 0,5h
+- more bug fixes 1h
+- added a spinning "loading" icon to show something is happening when searching albums 1h
 
 TODO:
 - make the UI look nice (font-family, background image, etc)
