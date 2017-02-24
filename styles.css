@@ -32,17 +32,12 @@ input{
     height:10%;
     width: 200px;
     margin: 0 auto;
-    /*text-align: center;
-    margin: auto;
-    margin-left:40%;
-    min-width:150px;*/
     display: inline-block;
     font-size: 32px;
     font-family:'Courier New';
     font-weight:bold;
     cursor:pointer;
     outline:none;
-    /*border:none;*/
     color:#fff;
     background-color:#4CAF50;
     border-radius:20px;
@@ -126,7 +121,6 @@ hr{
     text-decoration: none;
     background-color: #ABCDEF;
     border-radius:2px;
-    /*border: solid 1px;*/
 }
 
 .pagination a.current{
