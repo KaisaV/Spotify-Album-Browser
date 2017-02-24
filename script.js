@@ -233,6 +233,7 @@ xmlhttp.onreadystatechange = function(){
                     document.getElementById("sortByArtist").style.display = "inline";
                     document.getElementById("sortByTitle").style.display = "inline";
                     document.getElementById("sortTitle").style.display = "inline";
+                    document.getElementById("pagi2").innerHTML = "<a href='#'>Back to top</a>";
         
                     document.getElementById("resultsHeader").innerHTML = "Found "+amount+ " albums for:  &quot;" + keyWord +"&quot;";
                 }   

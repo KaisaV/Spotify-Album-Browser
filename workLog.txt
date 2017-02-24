@@ -25,10 +25,5 @@ For tracking time usage
 - more bug fixes 1h
 - added a spinning "loading" icon to show something is happening when searching albums 1h
 - remove inappropriate characters from the keyword 1h
-
-
-
-TODO:
-- add pagination to the bottom of the page too
-Bugs:
-- pagination jumps ????
+- added a "back to top" button to the bottom of the page 0,25h
+- finish readme, testing 2h
